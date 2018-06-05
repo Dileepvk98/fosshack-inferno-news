@@ -1,0 +1,10 @@
+TABLE info_news
+       news_id   int NOT NULL AUTO_INCREMENT,
+       title varchar(255) NOT NULL,
+       short_description text NOT NULL,
+       url Char NOT NULL,
+       urlToImage Char NOT NULL,
+       author varchar(120) NOT NULL,
+       publishedAt   Date
+       PRIMARY KEY (news_id)
+https://newsapi.org/v1/articles?source=the-hindu&apiKey=74da5482c5fa4de690959100081eb0db
