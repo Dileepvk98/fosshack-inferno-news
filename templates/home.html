@@ -24,24 +24,17 @@
   <div id="section" class="box">
     <div id="content">
       <ul class="articles box">
+        {% for post in object_list %}
         <li>
-          <h2><a href="#">headline 1</a></h2>
+          <h2><a href="#">{{post}}</a></h2>
           <div class="article-info box">
             <p class="f-right"><a href="#" class="comment">Comments</a></p>
             <p class="f-left">date | Posted by <a href="#">author name</a> </p>
           </div>
           <p>first few lines of the artcile1 ...</p>
           <p class="more"><a href="#">Read more &raquo;</a></p>
-        </li>   
-        <li>
-          <h2><a href="#">headline 2</a></h2>
-          <div class="article-info box">
-            <p class="f-right"><a href="#" class="comment">Comments</a></p>
-            <p class="f-left">date | Posted by <a href="#">author name</a> </p>
-          </div>
-          <p>first few lines of the artcile2 ...</p>
-          <p class="more"><a href="#">Read more &raquo;</a></p>
-        </li>      
+        </li>
+        {% endfor %}      
       </ul>
       <div class="pagination box">
           <p class="f-right"> <a href="#" class="current">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </p>
