@@ -1,10 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load staticfiles %}
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Inferno News - Home</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" media="screen,projection" type="text/css" href="css/main.css" />
-<link rel="stylesheet" media="screen,projection" type="text/css" href="css/skin.css" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/main.css' %}" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/skin.css' %}" />
 <script type="text/javascript">
 </script>
 </head>
@@ -24,14 +25,14 @@
   <div id="section" class="box">
     <div id="content">
       <ul class="articles box">
-        {% for title in object_list %}
+        {% for Articles in object_list %}
         <li>
-          <h2><a href="#">{{title}}</a></h2>
+          <h2><a href="#">{{Articles.title}}</a></h2>
           <div class="article-info box">
             <p class="f-right"><a href="#" class="comment">Comments</a></p>
-            <p class="f-left">date | Posted by <a href="#">author name</a> </p>
+            <p class="f-left">{{Article.publishedAt}} | Posted by <a href="#">{{Articles.author}}</a> </p>
           </div>
-          <p>first few lines of the artcile1 ...</p>
+          <p>{{Articles.short_description}}</p>
           <p class="more"><a href="#">Read more &raquo;</a></p>
         </li>
         {% endfor %}      
