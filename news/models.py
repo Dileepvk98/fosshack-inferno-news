@@ -16,7 +16,7 @@ class Articles(models.Model):
     url = models.CharField(max_length=200)
     urlToImage = models.CharField(max_length=200)
     author = models.CharField(max_length=50)
-    publishedAt = models.DateField()
+    publishedAt = models.DateTimeField()
 
     class Meta:
         db_table = "info_news"
