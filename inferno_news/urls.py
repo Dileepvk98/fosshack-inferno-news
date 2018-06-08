@@ -19,5 +19,4 @@ from news import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('news.urls')),
-    path('index/', views.populate_db, name='index'),
 ]

@@ -14,9 +14,10 @@ class Articles(models.Model):
     title = models.CharField(max_length=255)
     short_description = models.CharField(max_length=500)
     url = models.CharField(max_length=200)
-    urlToImage = models.CharField(max_length=200)
-    author = models.CharField(max_length=50)
+    urlToImage = models.CharField(max_length=200, null=True)
+    author = models.CharField(max_length=50, null=True)
     publishedAt = models.DateTimeField()
+    source_id = models.CharField(max_length=100, blank=True)
 
     class Meta:
         db_table = "info_news"

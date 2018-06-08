@@ -25,17 +25,17 @@
   <div id="section" class="box">
     <div id="content">
       <ul class="articles box">
-        {% for Article in object_list %}
+        {% for news in object_list %}
         <li>
-          <h3><a href="#">{{Article.title}}</a></h3>
+          <h3><a href="#">{{news.title}}</a></h3>
           <div class="article-info box">
-            <p class="f-left">{{Article.publishedAt|date}} | Posted by {{Article.author}} </p>
+            <p class="f-left">{{news.publishedAt|date}} | Posted by {{news.author}} </p>
           </div>
           <div>
-            <img height="150" width="200" src="{{Article.urlToImage}}">
+            <img height="150" width="200" src="{{news.urlToImage}}">
           </div>
-          <p>{{Article.short_description}}</p>
-          <p class="more"><a href="{{ Article.url }}">Read more &raquo;</a></p>
+          <p>{{news.short_description}}</p>
+          <p class="more"><a href="{{ news.url }}">Read more &raquo;</a></p>
         </li>
         {% endfor %}      
       </ul>
