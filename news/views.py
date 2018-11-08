@@ -1,39 +1,48 @@
-# from django.shortcuts import render
-from django.views.generic import ListView
+from __future__ import unicode_literals
+from django.shortcuts import render
 from django.http import HttpResponse
-from datetime import datetime
+from django.template import loader
 from .models import Articles
 import json, requests
+from datetime import datetime
+
 # Create your views here.
 
+def news_generate(request,news_type="local"):
 
-def populate_db(request, source):
+    # to delete old news from db
+    all_news = Articles.objects.all().delete()
+    if(news_type == "sports"):
+        source = "espn"
+    elif(news_type == "science"):
+        source = "techcrunch"
+    elif(news_type == "business"):
+        source = "business-insider"
+    else:
+        source = "the-hindu"
+    
     response = requests.get("https://newsapi.org/v1/articles?source="+source+"&apiKey=74da5482c5fa4de690959100081eb0db")
     json_data = json.loads(response.text)
+    
     for article in json_data["articles"]:
-        result = Articles.objects.filter(title=article["title"])
-        if len(result) != 1:
-            if article["publishedAt"] is None:
-                time = datetime.now()
-            else:
-                time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
-            p = Articles(title=article["title"], short_description=article["description"], url=article["url"],
-                         urlToImage=article["urlToImage"], author=article["author"],
-                         publishedAt=time, source_id=source)
-            p.save()
-    return HttpResponse("Fetched News from "+source)
+		result = Articles.objects.filter(title=article["title"])
+		if len(result) < 1:
+			if article["publishedAt"] is None:
+				time = datetime.now()
+			else:
+				time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
+			news = Articles(title=article["title"],category=news_type ,short_description=article["description"], 
+					url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
+					publishedAt=time, source_id=source)
+			news.save()
 
-
-def src(request):
-    response = requests.get("https://newsapi.org/v1/sources?language=en")
-    json_data = json.loads(response.text)
-    string = ""
-    for i in json_data["sources"]:
-        string = string+"<br>"+i["id"]
-
-    return HttpResponse("Sources List " + string)
-
-
-class HomePageView(ListView):
-    model = Articles
-    template_name = 'home.html'
+    all_news = Articles.objects.filter(category=news_type)
+    template = loader.get_template('home.html')
+    context = {
+        'all_news': all_news
+    }
+    return HttpResponse(template.render(context, request))
+    
+def test_func(requests):
+    text = "<h1>put /local in the url <br> try to make /local or /sports or /business or /science as the default hompage<br>also search for 'FIX THIS' in home.html</h1>"
+    return HttpResponse(text)

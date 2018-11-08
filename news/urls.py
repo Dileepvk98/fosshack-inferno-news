@@ -1,9 +1,10 @@
 # news/urls.py
-from django.urls import path
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('', views.HomePageView.as_view(), name='home'),
-    path('fetch/<source>', views.populate_db),
-    path('sources', views.src),
+    # url(r'^$',views.news_generate,name = 'news_gen'),
+    url(r'^(?P<news_type>[a-z]+)$',views.news_generate,name = 'news_gen'),
+    # url(r'^test',views.test_func),
+    # url(r'^$',views.test_func),
 ]

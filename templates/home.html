@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Inferno News - Home</title>
+<title>Inferno News</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/main.css' %}" />
 <link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/skin.css' %}" />
@@ -10,75 +10,40 @@
 </script>
 </head>
 <body>
-<!-- START PAGE SOURCE -->
 <div class="main">
   <div id="header" class="box">
     <h1 id="logo">Inferno News</h1>
-    <h2 id="category">Local</h2>
+    <h4 id="category">Source : {{news.source_id}}</h4>
     <ul id="nav">
-      <li class="current"><a href="home.html">Home</a></li>
-      <li><a href="sports.html">Sports</a></li>
-      <li><a href="science.html">Science</a></li>
-      <li><a href="business.html">Business</a></li>
+      <li><a href="local">Local</a></li>
+      <li><a href="sports">Sports</a></li>
+      <li><a href="science">Science</a></li>
+      <li><a href="business">Business</a>  </li>
     </ul>
   </div>
+
   <div id="section" class="box">
     <div id="content">
       <ul class="articles box">
-        {% for news in object_list %}
+        {% for news in all_news %}
         <li>
-          <h3><a href="#">{{news.title}}</a></h3>
+          <h3>{{news.title}}</h3>
+          <div class="f-left">{{news.publishedAt|date}} | Posted by {{news.author}} </div>
           <div class="article-info box">
-            <p class="f-left">{{news.publishedAt|date}} | Posted by {{news.author}} </p>
-          </div>
-          <div>
-            <img height="150" width="200" src="{{news.urlToImage}}">
-          </div>
-          <p>{{news.short_description}}</p>
-          <p class="more"><a href="{{ news.url }}">Read more &raquo;</a></p>
+            <br>
+            <!-- <img height="150" width="200" src="{{news.urlToImage}}">  -->
+            <p>{{news.short_description}}</p>
+            <br>
+            <p class="more"><a href="{{ news.url }}">Read more &raquo;</a></p>
+          </div>    
         </li>
         {% endfor %}      
       </ul>
-      <div class="pagination box">
-          <p class="f-right"> <a href="#" class="current">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </p>
-          <p class="f-left">Page 1 of 5</p>
-        </div>
-    </div>
-    <!--div id="aside">
-      <form action="#" method="get" id="search">
-        <p>
-          <input type="text" size="20" class="input-text" value="Search our website" onfocus="if(this.value=='Search our website') this.value=''" />
-          <input type="submit" value="Search" class="input-submit" />
-        </p>
-      </form>
-      <h3>Sidebar Menu</h3>
-      <ul class="menu">
-        <li><a href="#">Discussion</a></li>
-        <li><a href="#">Authors</a></li>
-        <li><a href="#">Blogs</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <h3>About</h3>
-      <p class="box"> <img src="tmp/about-01.jpg" alt="" class="f-left" /> My name is Jessie Doe. I´m 26 years old and I´m living in the New York City.<br />
-        <a href="#">More about me</a> </p>
-      <h3 class="nomb">Sponsors</h3>
-      <ul class="sponsors">
-        <li><a href="#">Lorem ipsum dolor</a><br />
-          Donec libero. Suspendisse bibendum</li>
-        <li><a href="#">Dui pede condimentum</a><br />
-          Phasellus suscipit, leo a pharetra</li>
-        <li><a href="#">Condimentum lorem</a><br />
-          Tellus eleifend magna eget</li>
-        <li><a href="#">Donec mattis</a><br />
-          purus nec placerat bibendum</li>
-      </ul>
-    </div-->
+      <div class="pagination box"></div>
   </div>
+  <!-- <div id="footer">
+    <div class="main box"></div>
+  </div> -->
 </div>
-<div id="footer">
-  <div class="main box">
-  </div>
-</div>
-<!-- END PAGE SOURCE -->
 </body>
 </html>
