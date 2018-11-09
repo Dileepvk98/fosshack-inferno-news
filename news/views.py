@@ -8,10 +8,10 @@ from datetime import datetime
 
 # Create your views here.
 
-def news_generate(request,news_type="local"):
+def news_generate(request,news_type = "local"):
 
     # to delete old news from db
-    all_news = Articles.objects.all().delete()
+    # all_news = Articles.objects.all().delete()
     if(news_type == "sports"):
         source = "espn"
     elif(news_type == "science"):
@@ -37,12 +37,12 @@ def news_generate(request,news_type="local"):
 			news.save()
 
     all_news = Articles.objects.filter(category=news_type)
-    template = loader.get_template('home.html')
+    template = loader.get_template('index.html')
     context = {
         'all_news': all_news
     }
     return HttpResponse(template.render(context, request))
     
 def test_func(requests):
-    text = "<h1>put /local in the url <br> try to make /local or /sports or /business or /science as the default hompage<br>also search for 'FIX THIS' in home.html</h1>"
+    text = "<h1>Test page</h1>"
     return HttpResponse(text)

@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />
+		<title>Inferno News</title>
+		<script type="text/javascript"></script>
+    </head>
+    <body>
+		<header>
+			<h1><a href="local">Inferno News</a></h1>
+			<nav>
+				<ul>
+					<li><a href="local">Local</a></li>
+      				<li><a href="sports">Sports</a></li>
+      				<li><a href="science">Science</a></li>
+      				<li><a href="business">Business</a> </li>
+				</ul>
+			</nav>
+		</header>
+		<br><br><br><br><br><br><br><br>
+		<div id="secwrapper">
+			<section>
+				{% for news in all_news %}
+				<article id="featured">
+					<img height="200" width="420" src="{{news.urlToImage}}"> 
+					<h3>{{news.title}}</h3><br>
+					<p>{{news.short_description}}</p><br>
+					<a href="{{ news.url }}" class="readmore">Read more</a><br><br>
+					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5>
+				</article>
+				{% endfor %}
+			</section>
+		</div>
+		<footer>
+			<p></p>
+		</footer>
+	</body>
+</html>
+		
+		
+			
+    
+    
