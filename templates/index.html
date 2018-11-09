@@ -23,13 +23,15 @@
 		<div id="secwrapper">
 			<section>
 				{% for news in all_news %}
+				<a  href="{{ news.url }}" class="imglink" >
 				<article id="featured">
 					<img height="200" width="420" src="{{news.urlToImage}}"> 
 					<h3>{{news.title}}</h3><br>
 					<p>{{news.short_description}}</p><br>
-					<a href="{{ news.url }}" class="readmore">Read more</a><br><br>
+					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
 					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5>
 				</article>
+				</a>
 				{% endfor %}
 			</section>
 		</div>
