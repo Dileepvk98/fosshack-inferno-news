@@ -11,21 +11,23 @@
 		<header>
 			<h1><a href="local">Inferno News</a></h1>
 			<nav>
-				<ul>
+				
+				<ul id="navelements">
 					<li><a href="local">Local</a></li>
       				<li><a href="sports">Sports</a></li>
       				<li><a href="science">Science</a></li>
 					<li><a href="business">Business</a> </li>
+					<div class="loginsignup">
 					{% block content %}
 						{% if user.is_authenticated %}
-							<li><a href="{% url 'login'%}">Hi {{ user.username }}</a></li>
-							<li><a href="{% url 'logout' %}">logout</a></li>
+							<li class="username"><a  href="{% url 'login'%}">Welcome, {{ user.username }}</a></li>
+							<li class="loginsignup"><a  href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
-							<li><a href="{% url 'login'%}">Login</a></li>
-							<li><a href="{% url 'signup'%}">SignUp</a></li>
+							<li class="loginsignup"><a  href="{% url 'login'%}">Login</a></li>
+							<li class="loginsignup"><a  href="{% url 'signup'%}">Sign up</a></li>
 						{% endif %}
 					{% endblock %}
-					{% comment %} Dileep fix the spacing of login and signup {% endcomment %}
+					</div>
 				</ul>
 				
 			</nav>
@@ -36,7 +38,7 @@
 				{% for news in all_news %}
 				<a  href="{{ news.url }}" class="imglink" >
 				<article id="featured">
-					<img height="200" width="420" src="{{news.urlToImage}}"> 
+					<img height="200" width="420" src="{{news.urlToImage}}"><br><br>
 					<h3>{{news.title}}</h3><br>
 					<p>{{news.short_description}}</p><br>
 					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
