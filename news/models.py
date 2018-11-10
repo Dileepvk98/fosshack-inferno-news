@@ -16,5 +16,5 @@ class Articles(models.Model):
     publishedAt = models.DateTimeField(null = True)
     source_id = models.CharField(max_length=100, blank=True)
 
-    # def __str__(self):
-    #     return self.title[:50]
+    def __str__(self):
+        return self.title[:50]

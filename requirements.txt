@@ -1,3 +1,1 @@
-requests
-pymysql
-django
+django==2.0.0

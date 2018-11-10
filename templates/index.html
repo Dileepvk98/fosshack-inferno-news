@@ -17,9 +17,18 @@
       				<li><a href="science">Science</a></li>
       				<li><a href="business">Business</a> </li>
 				</ul>
+				
 			</nav>
 		</header>
 		<br><br><br><br><br><br><br><br>
+		{% block content %}
+		{% if user.is_authenticated %}
+		Hi {{ user.username }}!
+		{% else %}
+		<p>You are not logged in</p>
+		<a href="{% url 'login' %}">login</a>
+		{% endif %}
+		{% endblock %}
 		<div id="secwrapper">
 			<section>
 				{% for news in all_news %}

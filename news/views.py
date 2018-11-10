@@ -25,16 +25,16 @@ def news_generate(request,news_type = "local"):
     json_data = json.loads(response.text)
     
     for article in json_data["articles"]:
-		result = Articles.objects.filter(title=article["title"])
-		if len(result) < 1:
-			if article["publishedAt"] is None:
-				time = datetime.now()
-			else:
-				time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
-			news = Articles(title=article["title"],category=news_type ,short_description=article["description"], 
+        result = Articles.objects.filter(title=article["title"])
+        if len(result) < 1:
+            if article["publishedAt"] is None:
+                time = datetime.now()
+            else:
+                time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
+            news = Articles(title=article["title"],category=news_type ,short_description=article["description"], 
 					url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
 					publishedAt=time, source_id=source)
-			news.save()
+            news.save()
 
     all_news = Articles.objects.filter(category=news_type)
     template = loader.get_template('index.html')

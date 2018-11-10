@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,4 @@ STATIC_URL = '/static/'
 # TEMPLATE_DIRS = (
 #     os.path.join(SETTINGS_PATH, 'templates'),
 # )
+LOGIN_REDIRECT_URL = '/'
