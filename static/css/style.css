@@ -30,6 +30,7 @@ img{
 body{
 	font-family: SourceSansProLight, Verdana, Arial, sans-serif;
 	font-size: 16px;
+    background-attachment: fixed;
 }
 header h1, nav, nav li{
 	display: inline-block;
@@ -69,18 +70,24 @@ nav{
 
 }
 
-.username, .loginsignup, .username :hover{
+#navelements {
+	position: fixed;
+	top: 25px;
+	right: 10px;
+	display: inline-block;
+}
+
+.category{
+	position: fixed;
+	top: 20px;
+	left: 225px;
+	display: inline-block;
+}
+
+.username,.loginsignup,.username :hover{
 	display: inline;
 	background-color: transparent;
 	color: cyan;
-	
-}
-
-#navelements {
-	position: fixed;
-	top: 15px;
-	right: 10px;
-	display: inline-block;
 }
 
 nav li a{
@@ -129,8 +136,6 @@ article{
 	border-radius: 3px;
 	box-shadow: 0 2px 3px rgb(44, 44, 44);
 	background-color: white;
-	/* *display:contents; */
-    /* zoom:1; */
 }
 
 .readmore{
@@ -146,7 +151,9 @@ article{
 }
 article p{
 	margin-bottom: 7px;
+	font-weight: bold;
 }
+
 #photobox img{
 	margin: 5px 4px 6px 6.5px;
 	border: 1px solid black;
@@ -154,6 +161,7 @@ article p{
 
 #featured{
 	position: relative;
+	background-image:url("/static/imgs/bkgd.jpg")
 }
 #featuredico{
 	position: absolute;
@@ -166,7 +174,6 @@ footer{
 	height: 50px;
 	color: white;
 	position: fixed;
-	/* padding: 15px; */
 	position: fixed;
     bottom: 0;
     width: 100%;
@@ -174,3 +181,53 @@ footer{
 footer p{
 	margin: 5px 0 0 12%;
 }
+
+/* Hide default HTML checkbox */
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+  }
+  .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+  }
+  .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+  }
+  input:checked + .slider {
+	background-color: #2196F3;
+  }
+  input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+  }
+  /* Rounded sliders */
+  .slider.round {
+	border-radius: 34px;
+  }
+  .slider.round:before {
+	border-radius: 50%;
+  }
