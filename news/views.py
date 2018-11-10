@@ -21,7 +21,7 @@ def news_generate(request,news_type = "local"):
     else:
         source = "the-hindu"
     
-    response = requests.get("https://newsapi.org/v1/articles?source="+source+"&apiKey=74da5482c5fa4de690959100081eb0db")
+    response = requests.get("https://newsapi.org/v1/articles?source="+source+"&apiKey=d76f9ebaf17c4088ba4db2a030194f4c")
     json_data = json.loads(response.text)
     
     for article in json_data["articles"]:
