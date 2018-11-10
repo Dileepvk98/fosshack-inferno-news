@@ -128,3 +128,4 @@ STATIC_URL = '/static/'
 #     os.path.join(SETTINGS_PATH, 'templates'),
 # )
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

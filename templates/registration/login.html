@@ -27,15 +27,10 @@
           <input type="submit" value="LOGIN">
           <input type="hidden" name="next" value="{{ next }}" />
 				</form>
-				<p>Don't have an Account? <a href="#"> Login Now!</a></p>
+				<p>Don't have an Account? <a href="{% url 'signup'%}"> SignUp Now!</a></p>
 			</div>
     </div>
     {% endblock %}
-		<!-- copyright -->
-		<div class="colorlibcopy-agile">
-			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
-		</div>
-		<!-- //copyright -->
 		<ul class="colorlib-bubbles">
 			<li></li>
 			<li></li>
