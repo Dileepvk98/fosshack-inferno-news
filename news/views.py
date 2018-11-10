@@ -18,7 +18,7 @@ def news_generate(request,news_type = "local"):
         sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
         
     elif(news_type == "science"):
-        sources = ["the-scientist","next-big-future","national-geographic"]
+        sources = ["new-scientist","next-big-future","national-geographic"]
 
     elif(news_type == "tech"):
         sources = ["techcrunch","ars-technica","wired","ign"]
