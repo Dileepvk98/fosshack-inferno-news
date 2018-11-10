@@ -29,22 +29,6 @@ def news_generate(request,news_type = "local"):
     else:
         sources = ["the-hindu","the-times-of-india","google-news-in"]
     
-<<<<<<< HEAD
-    response = requests.get("https://newsapi.org/v1/articles?source="+source+"&apiKey=d76f9ebaf17c4088ba4db2a030194f4c")
-    json_data = json.loads(response.text)
-    
-    for article in json_data["articles"]:
-        result = Articles.objects.filter(title=article["title"])
-        if len(result) < 1:
-            if article["publishedAt"] is None:
-                time = datetime.now()
-            else:
-                time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ')
-            news = Articles(title=article["title"],category=news_type ,short_description=article["description"], 
-					url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
-					publishedAt=time, source_id=source)
-            news.save()
-=======
     for source in sources:
         response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=d76f9ebaf17c4088ba4db2a030194f4c")
         json_data = json.loads(response.text)
@@ -65,7 +49,6 @@ def news_generate(request,news_type = "local"):
         				# publishedAt=time,
                          source_id=article["source"]["name"])
                 news.save()
->>>>>>> 86b3ef0023a8b6f7f4ae37351c58554bbfd2873d
 
     all_news = Articles.objects.filter(category=news_type)
     template = loader.get_template('index.html')
