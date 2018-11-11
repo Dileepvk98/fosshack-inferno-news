@@ -30,7 +30,7 @@ def news_generate(request,news_type = "local"):
         sources = ["the-hindu","the-times-of-india","google-news-in"]
     
     for source in sources:
-        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=d76f9ebaf17c4088ba4db2a030194f4c")
+        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=5f51f7dd9bca4908a91dd918634eb417")
         json_data = json.loads(response.text)
         data.append(json_data["articles"])
 
