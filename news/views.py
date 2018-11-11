@@ -13,7 +13,7 @@ def news_generate(request,news_type = "local"):
 
     # to delete old news from db
     # all_news = Articles.objects.all().delete()
-    sources=[]
+    APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
     if(news_type == "sports"):
         sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
@@ -31,7 +31,7 @@ def news_generate(request,news_type = "local"):
         sources = ["the-hindu","the-times-of-india","google-news-in"]
     
     for source in sources:
-        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey=d76f9ebaf17c4088ba4db2a030194f4c")
+        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
         json_data = json.loads(response.text)
         data[source] = json_data["articles"]
 
@@ -42,14 +42,20 @@ def news_generate(request,news_type = "local"):
             c_s_id = Category_Source.objects.get(category=news_type,source_id=source)
             result = Articles.objects.filter(title=article["title"])
             if len(result) < 1:
-                # if article["publishedAt"] is None:
-                #     time = datetime.now()
-                # else:
-                #     time = datetime.strptime(article["publishedAt"], '%Y-%m-%dT%H:%M:%SZ') "2018-11-10T14:12:15Z"
+                if article["publishedAt"] is None:
+                    time = datetime.now()
+                else:
+                    time = article["publishedAt"]
+                    # time = time[:time.find('+')]+"Z"
+                    time = time[:19]+"Z"
+                    print("\ntime",time)
+                    time = datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ') #"2018-11-10T14:12:15Z"
+                    print("\ntime",time)
                 news = Articles(title=article["title"],short_description=article["description"], 
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
         				# publishedAt=time,
                         source_category=c_s_id)
+
                 news.save()
 
     all_news = Articles.objects.filter(source_category__category=news_type)

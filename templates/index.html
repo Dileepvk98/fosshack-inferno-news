@@ -2,22 +2,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+		<meta charset="utf-8" />
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />
 		<title>Inferno News</title>
 		<script type="text/javascript"></script>
     </head>
-    <body>
+    <body background="{% static 'imgs/bg2.jpg' %}">
 		<header>
 			<h1><a href="local">Inferno News</a></h1>
 			<nav>
 				
 				<ul id="navelements">
-					<li><a href="local">Local</a></li>
-      				<li><a href="sports">Sports</a></li>
-					  <li><a href="science">Science</a></li>
-					  <li><a href="tech">Technology</a></li>
-					<li><a href="business">Business</a> </li>
+					<div class="category">
+						<li><a href="local">Local</a></li>
+      					<li><a href="sports">Sports</a></li>
+						<li><a href="science">Science</a></li>
+						<li><a href="tech">Technology</a></li>
+						<li><a href="business">Business</a> </li>
+					</div>
 					<div class="loginsignup">
 					{% block content %}
 						{% if user.is_authenticated %}
@@ -43,7 +46,15 @@
 					<h3>{{news.title}}</h3><br>
 					<p>{{news.short_description}}</p><br>
 					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
-					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5>
+					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
+					<form action="#">
+						<label class="switch">
+							<input type="checkbox">
+							<span class="slider round"></span>
+						</label>
+						<div id="imp"><b>Mark as important</b></div>						
+					</form>
+					
 				</article>
 				</a>
 				{% endfor %}
