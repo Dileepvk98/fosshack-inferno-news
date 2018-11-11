@@ -9,7 +9,7 @@ class Articles(models.Model):
     news_id = models.AutoField(primary_key=True)
     category = models.CharField(max_length=30)
     title = models.CharField(max_length=255)
-    short_description = models.CharField(max_length=500)
+    short_description = models.CharField(max_length=500, null=True)
     url = models.CharField(max_length=200)
     urlToImage = models.CharField(max_length=200, null=True)
     author = models.CharField(max_length=50, null=True)

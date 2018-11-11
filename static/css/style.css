@@ -191,8 +191,10 @@ footer p{
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 34px;
+	width: 60px;    /*60*/
+	height: 24px;	/*34*/
+	margin-left: 130px;
+	
   }
   .slider {
 	position: absolute;
@@ -208,8 +210,8 @@ footer p{
   .slider:before {
 	position: absolute;
 	content: "";
-	height: 26px;
-	width: 26px;
+	height: 16px;
+	width: 16px;
 	left: 4px;
 	bottom: 4px;
 	background-color: white;
@@ -222,7 +224,7 @@ footer p{
   input:checked + .slider:before {
 	-webkit-transform: translateX(26px);
 	-ms-transform: translateX(26px);
-	transform: translateX(26px);
+	transform: translateX(36px);
   }
   /* Rounded sliders */
   .slider.round {
@@ -230,4 +232,9 @@ footer p{
   }
   .slider.round:before {
 	border-radius: 50%;
+  }
+
+  #imp{
+	  
+	  margin-top: -20px;
   }
