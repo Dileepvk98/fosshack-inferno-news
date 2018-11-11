@@ -14,6 +14,10 @@ def news_generate(request,news_type = "local"):
     # to delete old news from db
     # all_news = Articles.objects.all().delete()
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
+
+    print("req",request)
+    print(type(request))
+
     data = {}
     if(news_type == "sports"):
         sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
@@ -46,11 +50,8 @@ def news_generate(request,news_type = "local"):
                     time = datetime.now()
                 else:
                     time = article["publishedAt"]
-                    # time = time[:time.find('+')]+"Z"
-                    time = time[:19]+"Z"
-                    print("\ntime",time)
-                    time = datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ') #"2018-11-10T14:12:15Z"
-                    print("\ntime",time)
+                    time = datetime.strptime(time[:19]+"Z", '%Y-%m-%dT%H:%M:%SZ') #"2018-11-10T14:12:15Z"
+                    
                 news = Articles(title=article["title"],short_description=article["description"], 
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
         				publishedAt=time,source_category=c_s_id)
