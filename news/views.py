@@ -53,8 +53,7 @@ def news_generate(request,news_type = "local"):
                     print("\ntime",time)
                 news = Articles(title=article["title"],short_description=article["description"], 
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
-        				# publishedAt=time,
-                        source_category=c_s_id)
+        				publishedAt=time,source_category=c_s_id)
 
                 news.save()
 
