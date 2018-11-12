@@ -491,7 +491,7 @@ input.checkbox:checked:after {
   width: 160px;
   height: 160px;
   -webkit-animation-delay: 9s;
-  animation-delay: 8s;
+  animation-delay: 5s;
 }
 
 @-webkit-keyframes square {

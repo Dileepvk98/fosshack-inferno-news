@@ -1,0 +1,114 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/profile.css' %}" />
+		
+		<title>Inferno News</title>
+		<script type="text/javascript"></script>
+    </head>
+    <body background="{% static 'imgs/bg2.jpg' %}">
+            
+		<header>
+			<h1><a href="local">Inferno News</a></h1>
+			<nav>
+				
+				<ul id="navelements">
+					<div class="loginsignup">
+					{% block content %}
+						{% if user.is_authenticated %}
+							<li class="username"><a  href="#">Welcome, {{ user.username }}</a></li>
+							<li class="loginsignup"><a  href="{% url 'logout' %}">Logout</a></li>
+						{% endif %}
+					{% endblock %}
+					</div>
+				</ul>
+			</nav>
+        </header>
+
+        <br><br><br><br><br><br>
+        <h4> &nbsp; Select news sources  of your choice from the different categories :-</h4><br>
+        <form action="#">
+            <table id="category_table">
+                <tr>
+                    <th>Local</th>
+                    {%  for l in local %}
+                    <td>{{l.source_id}}
+                        <label class="table_checkbox">
+                            <input type="checkbox">
+                            <span class="table_checkmark"></span></label>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Sports</th>
+                    {%  for l in sports %}
+                    <td>{{l.source_id}}
+                        <label class="table_checkbox">
+                            <input type="checkbox">
+                            <span class="table_checkmark"></span></label>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Science</th>
+                    {%  for l in science %}
+                    <td>{{l.source_id}}
+                         <label class="table_checkbox">
+                             <input type="checkbox">
+                            <span class="table_checkmark"></span></label>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Technology</th>
+                    {%  for l in tech %}
+                    <td>{{l.source_id}}
+                        <label class="table_checkbox">
+                            <input type="checkbox">
+                            <span class="table_checkmark"></span></label>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                <th>Business</th>
+                    {%  for l in business %}
+                    <td>{{l.source_id}}
+                        <label class="table_checkbox">
+                            <input type="checkbox">
+                            <span class="table_checkmark"></span></label>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </form>
+
+		<div id="secwrapper">
+			<section>
+				{% for news in marked_news %}
+				<a  href="{{ news.url }}" class="imglink" >
+				    <article id="featured">
+                        <!-- <img height="200" width="420" src="{{news.urlToImage}}"><br> -->
+                        <br>
+					    <h3>{{news.title}}</h3><br>
+					    <h5>{{news.publishedAt|date}}</h5><br>
+					    {% if user.is_authenticated %}
+					    <form action="#">
+					    	<label class="container">Remove from 'Read later'
+					    		<input type="checkbox">
+					    		<span class="checkmark"></span>
+					    	</label>
+					    </form>
+					    {% endif %}
+					
+				    </article>
+				</a>
+				{% endfor %}
+			</section>
+		</div>
+		<footer>
+			<p></p>
+		</footer>
+	</body>
+</html>

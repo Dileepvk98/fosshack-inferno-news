@@ -3,7 +3,6 @@
 <html>
     <head>
 		<meta charset="utf-8" />
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />
 		
 		<title>Inferno News</title>
@@ -25,7 +24,7 @@
 					<div class="loginsignup">
 					{% block content %}
 						{% if user.is_authenticated %}
-							<li class="username"><a  href="{% url 'login'%}">Welcome, {{ user.username }}</a></li>
+							<li class="username"><a  href="profile" >Welcome, {{ user.username }}</a></li>
 							<li class="loginsignup"><a  href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
 							<li class="loginsignup"><a  href="{% url 'login'%}">Login</a></li>
@@ -42,30 +41,23 @@
 			<section>
 				{% for news in all_news %}
 				<a  href="{{ news.url }}" class="imglink" >
-				<article id="featured">
-					<img height="200" width="420" src="{{news.urlToImage}}"><br><br>
-					<h3>{{news.title}}</h3><br>
-					<p>{{news.short_description}}</p><br>
-					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
-					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
-					<form action="#">
-						<!-- <label class="switch">
-							<input type="checkbox">
-							<span class="slider round"></span>
-						</label>
-						<div id="imp"><b>Mark as important</b></div>						 -->
-						<!-- <input type="submit" id="image-button" value="Mark as important"> -->
-						<!-- <button type="submit">
-							<img src="save.gif"/>
-							<br/>
-						</button> -->
-						<label class="container">Add to 'Read later'
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-					</form>
-					
-				</article>
+
+					<article id="featured">
+						<img height="200" width="420" src="{{news.urlToImage}}"><br><br>
+						<h3>{{news.title}}</h3><br>
+						<p>{{news.short_description}}</p><br>
+						<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
+
+						{% if user.is_authenticated %}
+						<form action="#">
+							<label class="container">Add to 'Read later'
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+						</form>
+						{% endif %}
+
+					</article>
 				</a>
 				{% endfor %}
 			</section>
