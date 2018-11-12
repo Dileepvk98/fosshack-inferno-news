@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />
+		
 		<title>Inferno News</title>
 		<script type="text/javascript"></script>
     </head>
@@ -48,11 +49,20 @@
 					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
 					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
 					<form action="#">
-						<label class="switch">
+						<!-- <label class="switch">
 							<input type="checkbox">
 							<span class="slider round"></span>
 						</label>
-						<div id="imp"><b>Mark as important</b></div>						
+						<div id="imp"><b>Mark as important</b></div>						 -->
+						<!-- <input type="submit" id="image-button" value="Mark as important"> -->
+						<!-- <button type="submit">
+							<img src="save.gif"/>
+							<br/>
+						</button> -->
+						<label class="container">Add to 'Read later'
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
 					</form>
 					
 				</article>
