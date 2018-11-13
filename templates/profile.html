@@ -26,66 +26,85 @@
 				</ul>
 			</nav>
         </header>
-
-        <br><br><br><br><br><br>
-        <h4> &nbsp; Select news sources  of your choice from the different categories :-</h4><br>
-        <form action="#">
-            <table id="category_table">
-                <tr>
-                    <th>Local</th>
+        
+        
+        <div class="category-source">
+            <h4>Select news sources  of your choice from the different categories :-</h4><br>
+            <form  action="#">
+                <div class="category_name">
+                    <h5>Local</h5>
                     {%  for l in local %}
-                    <td>{{l.source_id}}
-                        <label class="table_checkbox">
-                            <input type="checkbox">
-                            <span class="table_checkmark"></span></label>
-                    </td>
+                    <div class="source_name">
+                        <label class="source_checkbox">  
+                                <h6>{{l.source_id}}</h6>                         
+                            <input type="checkbox">                           
+                            <span class="custom_checkmark"></span> 
+                        </label>
+                    </div>  
                     {% endfor %}
-                </tr>
-                <tr>
-                    <th>Sports</th>
+                </div>
+                <div class="category_name">
+                    <h5>Sports</h5>
                     {%  for l in sports %}
-                    <td>{{l.source_id}}
-                        <label class="table_checkbox">
-                            <input type="checkbox">
-                            <span class="table_checkmark"></span></label>
-                    </td>
+                    <div class="source_name">                    
+                        <label class="source_checkbox">   
+                            <h6>{{l.source_id}}</h6> 
+                            <input type="checkbox">                          
+                            <span class="custom_checkmark"></span> 
+                        </label>
+                    </div>  
                     {% endfor %}
-                </tr>
-                <tr>
-                    <th>Science</th>
+                </div>
+                <div class="category_name">
+                    <h5>Science</h5>
                     {%  for l in science %}
-                    <td>{{l.source_id}}
-                         <label class="table_checkbox">
-                             <input type="checkbox">
-                            <span class="table_checkmark"></span></label>
-                    </td>
+                    <div class="source_name">
+
+                        <label class="source_checkbox">    
+                            <h6>{{l.source_id}}</h6>                       
+                            <input type="checkbox">                          
+                            <span class="custom_checkmark"></span> 
+                        </label>
+                    </div>  
                     {% endfor %}
-                </tr>
-                <tr>
-                    <th>Technology</th>
+                </div>
+                <div class="category_name">
+                    <h5>Technology</h5>
                     {%  for l in tech %}
-                    <td>{{l.source_id}}
-                        <label class="table_checkbox">
-                            <input type="checkbox">
-                            <span class="table_checkmark"></span></label>
-                    </td>
+                    <div class="source_name">
+                        
+                        <label class="source_checkbox">   
+                            <h6>{{l.source_id}}</h6>                        
+                            <input type="checkbox">                           
+                            <span class="custom_checkmark"></span> 
+                        </label>
+                    </div>  
                     {% endfor %}
-                </tr>
-                <tr>
-                <th>Business</th>
+                </div>  
+                <div class="category_name">
+                    <h5>Business</h5>
                     {%  for l in business %}
-                    <td>{{l.source_id}}
-                        <label class="table_checkbox">
+                    <div class="source_name">
+                        
+                        <label class="source_checkbox">   
+                            <h6>{{l.source_id}}</h6>                        
                             <input type="checkbox">
-                            <span class="table_checkmark"></span></label>
-                    </td>
+                            <span class="custom_checkmark"></span> 
+                        </label>
+                    </div>  
                     {% endfor %}
-                </tr>
-            </table>
-        </form>
+                </div>  
+                <div class="savebtn">
+                    <input type="submit" value="Save / Update">
+                </div>
+                         
+            </form>
+
+        </div>
 
 		<div id="secwrapper">
 			<section>
+                <h3>Bookmared news :-</h3>
 				{% for news in marked_news %}
 				<a  href="{{ news.url }}" class="imglink" >
 				    <article id="featured">

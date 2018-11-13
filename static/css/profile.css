@@ -28,9 +28,19 @@ img{
 }
 
 body{
-	font-family: SourceSansProLight, Verdana, Arial, sans-serif;
+	/* font-family: SourceSansProLight, Verdana, Arial, sans-serif; */
 	font-size: 16px;
-    background-attachment: fixed;
+	background-attachment: fixed;
+	background: #0660d4;
+	/* fallback for old browsers */
+	background: -webkit-linear-gradient(to top, #0b70f5, #8DC26F);
+	background: -moz-linear-gradient(to top, #0b70f5, #8DC26F);
+	background: -o-linear-gradient(to top, #0b70f5, #8DC26F);
+	background: linear-gradient(to top, #0b70f5, #8DC26F);
+	background-size: cover;
+	background-attachment: fixed;
+	font-family: 'Roboto', sans-serif;
+
 }
 header h1, nav, nav li{
 	display: inline-block;
@@ -231,60 +241,55 @@ input#image-button{
 }
 
 
-
-
-
-/* The container */
-table .container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/*profile page table*/
-#category_table {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-	width: 100%;
-}
-
-#category_table td, #category_table th {
-    border: 1.5px solid rgb(0, 0, 0);
-    padding: 8px;
-}
-
-table#category_table{
-    empty-cells: show;
-}
-
-#category_table tr:nth-child(even){background-color: #f2f2f2;}
-#category_table tr:nth-child(odd){background-color: #ccc7c7;}
-
-/* #category_table tr:hover {background-color: #ddd;} */
-
-#category_table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: rgb(34, 34, 34);
-    color: white;
-}
-
 h4{
     font-weight: bolder;
-    color: white;
-    font-size: 15pt;
+	color: #ffffff;
+	position: absolute;
+	font-size: 17pt;
+	margin-top: 100px;
 }
 
-.table_checkbox{
-    display: inline;
+h5{
+	font-weight: bolder;
+	color: #ffffff;
+	font-size: 16pt;
+}
+
+.category_name{
+	vertical-align: top;
+	display: inline-block	;
+	position: relative;;
+	top: 130px;
+	padding: 20px;
+	margin-left: 6.4%;
+	/* border-style: solid;	 */
+	margin-bottom: 50px;
+
+}
+
+.category-source{
+	display: block;
+	padding-left: 30px;
+	text-align: left;
+}
+
+.source_name{
+	margin-left: -30px;
+	display: block;
+	margin-top: 10px;
+	padding-right: 30px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+h6{
+	font-weight: bolder;
+	color: #ffffff;
+
+	font-size: 13pt;
+}
+
+.source_checkbox{
+    display: inline-block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
@@ -297,7 +302,7 @@ h4{
 }
 
 /* Hide the browser's default checkbox */
-.table_checkbox input{
+.source_checkbox input{
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -305,30 +310,30 @@ h4{
     width: 0;
 }
 /* Create a custom checkbox */
-.table_checkmark {
+.custom_checkmark {
     position: absolute;
     height: 20px;
     width: 20px;
     margin-top: 5px;
-    background-color: rgb(116, 116, 116);
+    background-color: rgb(233, 227, 227);
 }
 
 /* When the checkbox is checked, add a blue background */
-.table_checkbox input:checked ~ .table_checkmark {
-    background-color: rgb(8, 133, 235);
+.source_checkbox input:checked ~ .custom_checkmark {
+    background-color: rgb(255, 0, 0);
 }
 /* Create the checkmark/indicator (hidden when not checked) */
-.table_checkmark:after {
+.custom_checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 /* Show the checkmark when checked */
-.table_checkbox input:checked ~ .table_checkmark:after {
+.source_checkbox input:checked ~ .custom_checkmark:after {
     display: block;
 }
 /* Style the checkmark/indicator */
-.table_checkbox .table_checkmark:after {
+.source_checkbox .custom_checkmark:after {
     left: 6px;
     top: 3px;
     width: 5px;
@@ -337,3 +342,37 @@ h4{
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
 }
+.savebtn{
+	margin-top: 120px;
+	text-align: center;
+}
+
+input[type="submit"] {
+	font-size: .9em;
+	color: rgb(0, 0, 0);
+	background: #03c554;
+	border: 1px solid #03c554;
+	cursor: pointer;
+	padding: 10px;
+	-webkit-appearance: none;
+	width: 20%;
+  }
+  
+  input[type="submit"]:hover {
+	-webkit-transition: .5s all;
+	-moz-transition: .5s all;
+	-o-transition: .5s all;
+	-ms-transition: .5s all;
+	transition: .5s all;
+	background: rgb(5, 235, 63);
+  }
+
+  section h3{
+	font-family: 'Roboto', sans-serif;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	font-weight: bold;
+	padding-left: 30px;
+	font-size: 18pt;
+	color: white;
+  }
