@@ -7,28 +7,24 @@ from .models import Category_Source
 from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
+from .models import Categories
+from .models import  MarkedNews
 
 # Create your views here.
 
 def news_fetch(news_type = "local"):
 
-    # to delete old news from db
-    # all_news = Articles.objects.all().delete()
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
-
     data = {}
+
     if(news_type == "sports"):
         sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
-        
     elif(news_type == "science"):
         sources = ["new-scientist","next-big-future","national-geographic"]
-
     elif(news_type == "tech"):
         sources = ["techcrunch","ars-technica","wired","ign"]
-
     elif(news_type == "business"):
         sources = ["business-insider","cnbc","financial-times"]
-        
     else:
         sources = ["the-hindu","the-times-of-india","google-news-in"]
     try:
@@ -50,12 +46,11 @@ def news_fetch(news_type = "local"):
                     time = datetime.now()
                 else:
                     time = article["publishedAt"]
-                    time = datetime.strptime(time[:19]+"Z", '%Y-%m-%dT%H:%M:%SZ') #"2018-11-10T14:12:15Z"
-                    
+                    # eg. "2018-11-10T14:12:15Z"
+                    time = datetime.strptime(time[:19]+"Z", '%Y-%m-%dT%H:%M:%SZ') 
                 news = Articles(title=article["title"],short_description=article["description"], 
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
         				publishedAt=time,source_category=c_s_id)
-
                 news.save()
 
 def news_render(request,news_type = "local"):
@@ -65,7 +60,32 @@ def news_render(request,news_type = "local"):
     template = loader.get_template('index.html')
     context = {
         'all_news': all_news
+    }   
+    return HttpResponse(template.render(context, request))
+
+def show_profile_pg(request):
+
+    local = Category_Source.objects.filter(category="local")
+    sports = Category_Source.objects.filter(category="sports")
+    science = Category_Source.objects.filter(category="science")
+    tech = Category_Source.objects.filter(category="tech")
+    business = Category_Source.objects.filter(category="business")
+
+    categories = Categories.objects.all()
+    marked_news = MarkedNews.objects.all()
+
+    context = {
+        'local':local,
+        'sports':sports,
+        'science':science,
+        'tech':tech,
+        'business':business,
+        
+        'marked_news':marked_news,
+        'categories':categories
     }
+
+    template = loader.get_template('profile.html')
     return HttpResponse(template.render(context, request))
     
 def test_func(request):
