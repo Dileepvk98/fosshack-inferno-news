@@ -2,21 +2,19 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Articles
+from .models import Articles,MarkedNews
 from .models import Category_Source
+from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
 
 # Create your views here.
 
-def news_generate(request,news_type = "local"):
+def news_fetch(news_type = "local"):
 
     # to delete old news from db
     # all_news = Articles.objects.all().delete()
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
-
-    print("req",request)
-    print(type(request))
 
     data = {}
     if(news_type == "sports"):
@@ -33,11 +31,13 @@ def news_generate(request,news_type = "local"):
         
     else:
         sources = ["the-hindu","the-times-of-india","google-news-in"]
-    
-    for source in sources:
-        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
-        json_data = json.loads(response.text)
-        data[source] = json_data["articles"]
+    try:
+        for source in sources:
+            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
+            json_data = json.loads(response.text)
+            data[source] = json_data["articles"]
+    except:
+        return
 
     for source in data:
         # list of articles from each source
@@ -58,13 +58,26 @@ def news_generate(request,news_type = "local"):
 
                 news.save()
 
+def news_render(request,news_type = "local"):
+    # news_fetch(news_type)
     all_news = Articles.objects.filter(source_category__category=news_type)
+    # print(all_news)
     template = loader.get_template('index.html')
     context = {
         'all_news': all_news
     }
     return HttpResponse(template.render(context, request))
     
-def test_func(requests):
-    text = "<h1>Test page</h1>"
+def test_func(request):
+    template = loader.get_template('test.html')
+    context = {}
+    return HttpResponse(template.render(context,request))
+
+def mark_news(request,newsid,userid):
+    text = "<h1>Marked/h1>"
+    print(newsid,userid)
+    newsOb = Articles.objects.get(news_id=newsid)
+    userOb = User.objects.get(id=userid)
+    m = MarkedNews(userId=userOb,news_id=newsOb)
+    m.save()
     return HttpResponse(text)

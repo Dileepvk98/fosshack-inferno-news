@@ -28,5 +28,5 @@ class Articles(models.Model):
         return self.title[:50]
 
 class MarkedNews(models.Model):
-    username = models.ForeignKey(get_user_model(),to_field='username',on_delete=models.CASCADE)
+    userId = models.ForeignKey(get_user_model(),to_field='id',on_delete=models.CASCADE)
     news_id = models.ForeignKey(Articles,to_field='news_id',on_delete=models.CASCADE)

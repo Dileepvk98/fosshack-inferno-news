@@ -48,7 +48,7 @@
 					<p>{{news.short_description}}</p><br>
 					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
 					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
-					<form action="#">
+					<form action="#" method="post">
 						<!-- <label class="switch">
 							<input type="checkbox">
 							<span class="slider round"></span>
@@ -60,7 +60,7 @@
 							<br/>
 						</button> -->
 						<label class="container">Add to 'Read later'
-							<input type="checkbox">
+							<input id="important" type="checkbox" onclick='markNews({{news.news_id}},{{user.id}})'>
 							<span class="checkmark"></span>
 						</label>
 					</form>
@@ -70,6 +70,17 @@
 				{% endfor %}
 			</section>
 		</div>
+		<script>
+			function markNews(nid,uid) {
+			  var xhttp = new XMLHttpRequest();
+			  var url = "mark/"+nid+"/"+uid;
+				//console.log(data.value)
+				//console.log(idr);
+			  console.log(url);
+			  xhttp.open("GET", url, true);
+			xhttp.send();
+			}
+		</script>
 		<footer>
 			<p></p>
 		</footer>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<button id="con" type="button" value='1' onclick="loadDoc(1,5)">Change Content</button>
+<button id="con" type="button" value='2' onclick="loadDoc(2,5)">Change Content</button>
+<script>
+        function loadDoc(idr,uid) {
+          var xhttp = new XMLHttpRequest();
+          var url = "mark/"+idr+"/"+uid;
+            //console.log(data.value)
+            //console.log(idr);
+          console.log(url);
+          xhttp.open("GET", url, true);
+        xhttp.send();
+        }
+</script>
+</body>
+</html>
