@@ -2,36 +2,22 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Articles,MarkedNews
-from .models import Category_Source
 from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
-from .models import Categories
-from .models import  MarkedNews
+from .models import Articles,MarkedNews,Category_Source#,Categories
 
 # Create your views here.
-
-def news_fetch(news_type = "local"):
+def news_fetch(news_type):
 
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
-
-    if(news_type == "sports"):
-        sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
-    elif(news_type == "science"):
-        sources = ["new-scientist","next-big-future","national-geographic"]
-    elif(news_type == "tech"):
-        sources = ["techcrunch","ars-technica","wired","ign"]
-    elif(news_type == "business"):
-        sources = ["business-insider","cnbc","financial-times"]
-    else:
-        sources = ["the-hindu","the-times-of-india","google-news-in"]
+    
     try:
-        for source in sources:
-            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
+        for source in Category_Source.objects.filter(category=news_type):
+            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source.source_id+"&apiKey="+APIKEY)
             json_data = json.loads(response.text)
-            data[source] = json_data["articles"]
+            data[source.source_id] = json_data["articles"]
     except:
         return
 
@@ -91,7 +77,7 @@ def show_profile_pg(request):
         'business':business,
         
         'marked_news':marked_news,
-        'categories':categories
+        # 'categories':categories
     }
 
     template = loader.get_template('profile.html')
