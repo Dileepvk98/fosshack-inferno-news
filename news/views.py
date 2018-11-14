@@ -67,7 +67,7 @@ def show_profile_pg(request):
     tech = Category_Source.objects.filter(category="tech")
     business = Category_Source.objects.filter(category="business")
 
-    categories = Categories.objects.all()
+    # categories = Categories.objects.all()
     marked_news = MarkedNews.objects.filter(userId=request.user.id)
     context = {
         'local':local,
