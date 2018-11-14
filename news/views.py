@@ -12,16 +12,12 @@ def news_fetch(news_type):
 
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
-    sources = []
-
-    for source in Category_Source.objects.filter(category=news_type):
-        sources.append(source.source_id)
-
+    
     try:
-        for source in sources:
-            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
+        for source in Category_Source.objects.filter(category=news_type):
+            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source.source_id+"&apiKey="+APIKEY)
             json_data = json.loads(response.text)
-            data[source] = json_data["articles"]
+            data[source.source_id] = json_data["articles"]
     except:
         return
 
@@ -53,7 +49,6 @@ def news_render(request,news_type = "local"):
     return HttpResponse(template.render(context, request))
 
 def show_profile_pg(request):
-
     local = Category_Source.objects.filter(category="local")
     sports = Category_Source.objects.filter(category="sports")
     science = Category_Source.objects.filter(category="science")

@@ -45,7 +45,6 @@
 					<img height="200" width="420" src="{{news.urlToImage}}"><br><br>
 					<h3>{{news.title}}</h3><br>
 					<p>{{news.short_description}}</p><br>
-					<!-- <a href="{{ news.url }}" class="readmore">Read more</a><br><br> -->
 					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
 					{% if user.is_authenticated %}
 					<form action="#" method="post">
