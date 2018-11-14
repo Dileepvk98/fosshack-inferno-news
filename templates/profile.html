@@ -99,26 +99,26 @@
 		<div id="secwrapper">
             <h3>Bookmared news :-</h3>
 			<section>
-				{% for m in marked_news %}
-				<a  href="{{ m.url }}" class="imglink" >
-				    <article id="featured">
-                        <!-- <img height="200" width="420" src="{{m.urlToImage}}"><br> -->
+                {% for news in marked_news %}
+                <a  href="{{ news.news_id.url }}" class="imglink" >
+                    <article id="featured">
+                        <img height="160" width="420" src="{{news.news_id.urlToImage}}"><br>
                         <br>
-					    <h5>{{m.news_id}}</h5><br>
-					    <!-- <h5>{{m.publishedAt|date}}</h5><br> -->
-					    {% if user.is_authenticated %}
-					    <form action="#">
+                        <h6>{{news.news_id.title}}</h6><br>
+                        <h5>{{news.news_id.publishedAt|date}}</h5><br>
+                        {% if user.is_authenticated %}
+                        <form action="/profile" method="GET">
+                            
                             <label class="container">
-                                <h6>Remove</h6>
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
+                                <input type="hidden" name='news' value="{{news.news_id.news_id}}">
+                                <input id="removebtn" type="submit" value="Remove">
                             </label>
-					    </form>
-					    {% endif %}
-					
-				    </article>
-				</a>
-				{% endfor %}
+                        </form>
+                        {% endif %}
+                    
+                    </article>
+                </a>
+                {% endfor %}
 			</section>
 		</div>
 		<footer>
