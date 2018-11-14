@@ -54,34 +54,33 @@ def show_profile_pg(request):
     science = Category_Source.objects.filter(category="science")
     tech = Category_Source.objects.filter(category="tech")
     business = Category_Source.objects.filter(category="business")
-
-    # categories = Categories.objects.all()
-    # marked_news = MarkedNews.objects.filter(userId='')
-
+    username = request.user.username
+    print(type(username))
+    print(username)
+    
+    # marked_news = MarkedNews.objects.filter(userId=username)
+    marked_news = MarkedNews.objects.all()
     context = {
         'local':local,
         'sports':sports,
         'science':science,
         'tech':tech,
         'business':business,
-        
-        'marked_news':marked_news,
-        # 'categories':categories
+        'marked_news':marked_news
     }
-
     template = loader.get_template('profile.html')
     return HttpResponse(template.render(context, request))
-    
-def test_func(request):
-    template = loader.get_template('test.html')
-    context = {}
-    return HttpResponse(template.render(context,request))
 
 def mark_news(request,newsid,userid):
-    text = "<h1>Marked/h1>"
-    print(newsid,userid)
+    # text = "<h1>Marked/h1>"
+    # print(newsid,userid)
     newsOb = Articles.objects.get(news_id=newsid)
     userOb = User.objects.get(id=userid)
     m = MarkedNews(userId=userOb,news_id=newsOb)
     m.save()
     return HttpResponse(text)
+    
+def test_func(request):
+    template = loader.get_template('test.html')
+    context = {}
+    return HttpResponse(template.render(context,request))

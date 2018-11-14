@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -20,8 +19,6 @@ class Articles(models.Model):
     urlToImage = models.CharField(max_length=200, null=True)
     author = models.CharField(max_length=50, null=True)
     publishedAt = models.DateTimeField(null = True)
-    # category = models.CharField(max_length=30)
-    # source_id = models.CharField(max_length=100, blank=True)
     source_category = models.ForeignKey(Category_Source,on_delete=models.CASCADE)
 
     def __str__(self):

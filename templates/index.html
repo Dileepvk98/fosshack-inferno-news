@@ -3,16 +3,14 @@
 <html>
     <head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />
-		
+		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/style.css' %}" />		
 		<title>Inferno News</title>
 		<script type="text/javascript"></script>
     </head>
     <body background="{% static 'imgs/bg2.jpg' %}">
 		<header>
 			<h1><a href="local">Inferno News</a></h1>
-			<nav>
-				
+			<nav>				
 				<ul id="navelements">
 					<div class="category">
 						<li><a href="local">Local</a></li>
@@ -32,8 +30,7 @@
 						{% endif %}
 					{% endblock %}
 					</div>
-				</ul>
-				
+				</ul>				
 			</nav>
 		</header>
 		<br><br><br><br><br><br><br><br>
@@ -53,8 +50,7 @@
 							<span class="checkmark"></span>
 						</label>
 					</form>
-					{% endif %}
-					
+					{% endif %}					
 				</article>
 				</a>
 				{% endfor %}

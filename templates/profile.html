@@ -3,8 +3,7 @@
 <html>
     <head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/profile.css' %}" />
-		
+		<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/profile.css' %}" />		
 		<title>Inferno News</title>
 		<script type="text/javascript"></script>
     </head>
@@ -12,8 +11,7 @@
             
 		<header>
 			<h1><a href="local">Inferno News</a></h1>
-			<nav>
-				
+			<nav>				
 				<ul id="navelements">
 					<div class="loginsignup">
 					{% block content %}
@@ -59,7 +57,6 @@
                     <h5>Science</h5>
                     {%  for l in science %}
                     <div class="source_name">
-
                         <label class="source_checkbox">    
                             <h6>{{l.source_id}}</h6>                       
                             <input type="checkbox">                          
@@ -71,8 +68,7 @@
                 <div class="category_name">
                     <h5>Technology</h5>
                     {%  for l in tech %}
-                    <div class="source_name">
-                        
+                    <div class="source_name">                      
                         <label class="source_checkbox">   
                             <h6>{{l.source_id}}</h6>                        
                             <input type="checkbox">                           
@@ -84,8 +80,7 @@
                 <div class="category_name">
                     <h5>Business</h5>
                     {%  for l in business %}
-                    <div class="source_name">
-                        
+                    <div class="source_name">                       
                         <label class="source_checkbox">   
                             <h6>{{l.source_id}}</h6>                        
                             <input type="checkbox">
@@ -94,30 +89,30 @@
                     </div>  
                     {% endfor %}
                 </div>  
+
                 <div class="savebtn">
                     <input type="submit" value="Save / Update">
-                </div>
-                         
+                </div>         
             </form>
-
         </div>
 
 		<div id="secwrapper">
+            <h3>Bookmared news :-</h3>
 			<section>
-                <h3>Bookmared news :-</h3>
-				{% for news in marked_news %}
-				<a  href="{{ news.url }}" class="imglink" >
+				{% for m in marked_news %}
+				<a  href="{{ m.url }}" class="imglink" >
 				    <article id="featured">
-                        <!-- <img height="200" width="420" src="{{news.urlToImage}}"><br> -->
+                        <!-- <img height="200" width="420" src="{{m.urlToImage}}"><br> -->
                         <br>
-					    <h3>{{news.title}}</h3><br>
-					    <h5>{{news.publishedAt|date}}</h5><br>
+					    <h5>{{m.news_id}}</h5><br>
+					    <!-- <h5>{{m.publishedAt|date}}</h5><br> -->
 					    {% if user.is_authenticated %}
 					    <form action="#">
-					    	<label class="container">Remove from 'Read later'
-					    		<input type="checkbox">
-					    		<span class="checkmark"></span>
-					    	</label>
+                            <label class="container">
+                                <h6>Remove</h6>
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
 					    </form>
 					    {% endif %}
 					
