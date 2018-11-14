@@ -55,16 +55,26 @@ def news_fetch(news_type = "local"):
 
 def news_render(request,news_type = "local"):
     # news_fetch(news_type)
+    marked = []
     all_news = Articles.objects.filter(source_category__category=news_type)
+    if request.user.is_authenticated:
+        marked = MarkedNews.objects.filter(userId=request.user.id)
+        marked = [m.news_id.news_id for m in marked]
+        print(marked)
     # print(all_news)
     template = loader.get_template('index.html')
     context = {
-        'all_news': all_news
+        'all_news': all_news,
+        'marked_news':marked
     }   
     return HttpResponse(template.render(context, request))
 
 def show_profile_pg(request):
 
+    if request.method == 'GET':
+        newsid = request.GET.get('news')
+        if newsid is not None:
+            MarkedNews.objects.filter(news_id=newsid,userId=request.user.id).delete()
     local = Category_Source.objects.filter(category="local")
     sports = Category_Source.objects.filter(category="sports")
     science = Category_Source.objects.filter(category="science")
@@ -72,8 +82,7 @@ def show_profile_pg(request):
     business = Category_Source.objects.filter(category="business")
 
     categories = Categories.objects.all()
-    marked_news = MarkedNews.objects.all()
-
+    marked_news = MarkedNews.objects.filter(userId=request.user.id)
     context = {
         'local':local,
         'sports':sports,
@@ -93,11 +102,15 @@ def test_func(request):
     context = {}
     return HttpResponse(template.render(context,request))
 
-def mark_news(request,newsid,userid):
+def mark_news(request,newsid):
     text = "<h1>Marked/h1>"
-    print(newsid,userid)
-    newsOb = Articles.objects.get(news_id=newsid)
-    userOb = User.objects.get(id=userid)
-    m = MarkedNews(userId=userOb,news_id=newsOb)
-    m.save()
+    # print(newsid,userid)
+    duplicate = MarkedNews.objects.filter(news_id=newsid,userId=request.user.id)
+    if len(duplicate) < 1:
+        newsOb = Articles.objects.get(news_id=newsid)
+        userOb = User.objects.get(id=request.user.id)
+        m = MarkedNews(userId=userOb,news_id=newsOb)
+        m.save()
+    else:
+        MarkedNews.objects.filter(news_id=newsid,userId=request.user.id).delete()
     return HttpResponse(text)

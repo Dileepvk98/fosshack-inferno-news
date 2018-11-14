@@ -50,7 +50,11 @@
 					{% if user.is_authenticated %}
 					<form action="#" method="post">
 						<label class="container">Add to 'Read later'
-							<input id="important" type="checkbox" onclick='markNews({{news.news_id}},{{user.id}})'>
+							{% if news.news_id in marked_news%}
+								<input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+							{% else %}
+							<input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+							{% endif %}
 							<span class="checkmark"></span>
 						</label>
 					</form>
@@ -62,9 +66,9 @@
 			</section>
 		</div>
 		<script>
-			function markNews(nid,uid) {
+			function markNews(nid) {
 			  var xhttp = new XMLHttpRequest();
-			  var url = "mark/"+nid+"/"+uid;
+			  var url = "mark/"+nid;
 				//console.log(data.value)
 				//console.log(idr);
 			  console.log(url);

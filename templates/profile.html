@@ -106,16 +106,17 @@
 			<section>
                 <h3>Bookmared news :-</h3>
 				{% for news in marked_news %}
-				<a  href="{{ news.url }}" class="imglink" >
+				<a  href="{{ news.news_id.url }}" class="imglink" >
 				    <article id="featured">
-                        <!-- <img height="200" width="420" src="{{news.urlToImage}}"><br> -->
+                        <img height="200" width="420" src="{{news.news_id.urlToImage}}"><br>
                         <br>
-					    <h3>{{news.title}}</h3><br>
-					    <h5>{{news.publishedAt|date}}</h5><br>
+					    <h3>{{news.news_id.title}}</h3><br>
+					    <h5>{{news.news_id.publishedAt|date}}</h5><br>
 					    {% if user.is_authenticated %}
-					    <form action="#">
+					    <form action="/profile" method="GET">
 					    	<label class="container">Remove from 'Read later'
-					    		<input type="checkbox">
+                                <input type="hidden" name='news' value="{{news.news_id.news_id}}">
+					    		<input type="submit" value="Remove">
 					    		<span class="checkmark"></span>
 					    	</label>
 					    </form>
