@@ -2,31 +2,21 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Articles,MarkedNews
-from .models import Category_Source
 from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
-from .models import Categories
-from .models import  MarkedNews
+from .models import Articles,MarkedNews,Category_Source#,Categories
 
 # Create your views here.
-
-def news_fetch(news_type = "local"):
+def news_fetch(news_type):
 
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
+    sources = []
 
-    if(news_type == "sports"):
-        sources = ["espn","bbc-sport","espn-cric-info","football-italia"]
-    elif(news_type == "science"):
-        sources = ["new-scientist","next-big-future","national-geographic"]
-    elif(news_type == "tech"):
-        sources = ["techcrunch","ars-technica","wired","ign"]
-    elif(news_type == "business"):
-        sources = ["business-insider","cnbc","financial-times"]
-    else:
-        sources = ["the-hindu","the-times-of-india","google-news-in"]
+    for source in Category_Source.objects.filter(category=news_type):
+        sources.append(source.source_id)
+
     try:
         for source in sources:
             response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
@@ -54,9 +44,8 @@ def news_fetch(news_type = "local"):
                 news.save()
 
 def news_render(request,news_type = "local"):
-    # news_fetch(news_type)
+    news_fetch(news_type)
     all_news = Articles.objects.filter(source_category__category=news_type)
-    # print(all_news)
     template = loader.get_template('index.html')
     context = {
         'all_news': all_news
@@ -71,8 +60,8 @@ def show_profile_pg(request):
     tech = Category_Source.objects.filter(category="tech")
     business = Category_Source.objects.filter(category="business")
 
-    categories = Categories.objects.all()
-    marked_news = MarkedNews.objects.all()
+    # categories = Categories.objects.all()
+    # marked_news = MarkedNews.objects.filter(userId='')
 
     context = {
         'local':local,
@@ -82,7 +71,7 @@ def show_profile_pg(request):
         'business':business,
         
         'marked_news':marked_news,
-        'categories':categories
+        # 'categories':categories
     }
 
     template = loader.get_template('profile.html')
