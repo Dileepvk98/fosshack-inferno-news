@@ -27,3 +27,7 @@ class Articles(models.Model):
 class MarkedNews(models.Model):
     userId = models.ForeignKey(get_user_model(),to_field='id',on_delete=models.CASCADE)
     news_id = models.ForeignKey(Articles,to_field='news_id',on_delete=models.CASCADE)
+
+class SourcesSelected(models.Model):
+    userId = models.ForeignKey(get_user_model(),to_field='id',on_delete=models.CASCADE)
+    source_id = models.ForeignKey(Category_Source ,on_delete=models.CASCADE)

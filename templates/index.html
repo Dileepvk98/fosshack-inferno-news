@@ -45,11 +45,12 @@
 					<h5>{{news.publishedAt|date}} | Author : {{news.author}}</h5><br>
 					{% if user.is_authenticated %}
 					<form action="#" method="post">
-						<label class="container">Add to 'Read later'
+						<label class="container">
+							<h5>Read Later</h5>
 							{% if news.news_id in marked_news%}
 								<input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
 							{% else %}
-							<input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+								<input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
 							{% endif %}
 							<span class="checkmark"></span>
 						</label>

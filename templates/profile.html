@@ -28,16 +28,27 @@
         
         <div class="category-source">
             <h4>Select news sources  of your choice from the different categories :-</h4><br>
-            <form  action="#">
+            <form  action="#" method="post">
                 <div class="category_name">
                     <h5>Local</h5>
                     {%  for l in local %}
                     <div class="source_name">
-                        <label class="source_checkbox">  
+                        <!-- <label class="source_checkbox">  
                                 <h6>{{l.source_id}}</h6>                         
                             <input type="checkbox">                           
                             <span class="custom_checkmark"></span> 
-                        </label>
+                        </label> -->
+                        
+                            <label class="source_checkbox">
+                                <h6>{{l.source_id}}</h6>
+                                {% if news.news_id in marked_news%}
+                                    <input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+                                {% else %}
+                                    <input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+                                {% endif %}
+                                <span class="custom_checkmark"></span>
+                            </label>
+                        
                     </div>  
                     {% endfor %}
                 </div>
@@ -45,11 +56,22 @@
                     <h5>Sports</h5>
                     {%  for l in sports %}
                     <div class="source_name">                    
-                        <label class="source_checkbox">   
+                        <!-- <label class="source_checkbox">   
                             <h6>{{l.source_id}}</h6> 
                             <input type="checkbox">                          
                             <span class="custom_checkmark"></span> 
-                        </label>
+                        </label> -->
+                        
+                            <label class="source_checkbox">
+                                <h6>{{l.source_id}}</h6>
+                                {% if news.news_id in marked_news%}
+                                    <input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+                                {% else %}
+                                    <input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+                                {% endif %}
+                                <span class="custom_checkmark"></span>
+                            </label>
+                        
                     </div>  
                     {% endfor %}
                 </div>
@@ -57,11 +79,22 @@
                     <h5>Science</h5>
                     {%  for l in science %}
                     <div class="source_name">
-                        <label class="source_checkbox">    
+                        <!-- <label class="source_checkbox">    
                             <h6>{{l.source_id}}</h6>                       
                             <input type="checkbox">                          
                             <span class="custom_checkmark"></span> 
-                        </label>
+                        </label> -->
+                        
+                            <label class="source_checkbox">
+                                <h6>{{l.source_id}}</h6>
+                                {% if news.news_id in marked_news%}
+                                    <input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+                                {% else %}
+                                    <input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+                                {% endif %}
+                                <span class="custom_checkmark"></span>
+                            </label>
+                        
                     </div>  
                     {% endfor %}
                 </div>
@@ -69,11 +102,22 @@
                     <h5>Technology</h5>
                     {%  for l in tech %}
                     <div class="source_name">                      
-                        <label class="source_checkbox">   
+                        <!-- <label class="source_checkbox">   
                             <h6>{{l.source_id}}</h6>                        
                             <input type="checkbox">                           
                             <span class="custom_checkmark"></span> 
-                        </label>
+                        </label> -->
+                        
+                            <label class="source_checkbox">
+                                <h6>{{l.source_id}}</h6>
+                                {% if news.news_id in marked_news%}
+                                    <input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+                                {% else %}
+                                    <input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+                                {% endif %}
+                                <span class="custom_checkmark"></span>
+                            </label>
+                       
                     </div>  
                     {% endfor %}
                 </div>  
@@ -81,23 +125,35 @@
                     <h5>Business</h5>
                     {%  for l in business %}
                     <div class="source_name">                       
-                        <label class="source_checkbox">   
+                        <!-- <label class="source_checkbox">   
                             <h6>{{l.source_id}}</h6>                        
                             <input type="checkbox">
                             <span class="custom_checkmark"></span> 
-                        </label>
+                        </label> -->
+                        
+                            <label class="source_checkbox">
+                                <h6>{{l.source_id}}</h6>
+                                {% if news.news_id in marked_news%}
+                                    <input id="important" type="checkbox" checked onclick='markNews({{news.news_id}},{{user.id}})'>
+                                {% else %}
+                                    <input id="important" type="checkbox" onclick='markNews({{news.news_id}})'>
+                                {% endif %}
+                                <span class="custom_checkmark"></span>
+                            </label>
+                        
                     </div>  
                     {% endfor %}
                 </div>  
 
-                <div class="savebtn">
+                <!-- <div class="savebtn">
                     <input type="submit" value="Save / Update">
-                </div>         
+                </div>          -->
+                <br><br><br><br><br><br><br><br>
             </form>
         </div>
 
 		<div id="secwrapper">
-            <h3>Bookmared news :-</h3>
+            <h3>Bookmared news :-</h3><br>
 			<section>
                 {% for news in marked_news %}
                 <a  href="{{ news.news_id.url }}" class="imglink" >
@@ -107,12 +163,11 @@
                         <h6>{{news.news_id.title}}</h6><br>
                         <h5>{{news.news_id.publishedAt|date}}</h5><br>
                         {% if user.is_authenticated %}
-                        <form action="/profile" method="GET">
-                            
+                        <form action="/profile" method="GET">                          
                             <label class="container">
                                 <input type="hidden" name='news' value="{{news.news_id.news_id}}">
                                 <input id="removebtn" type="submit" value="Remove">
-                            </label>
+                            </label>                           
                         </form>
                         {% endif %}
                     
@@ -120,7 +175,18 @@
                 </a>
                 {% endfor %}
 			</section>
-		</div>
+        </div>
+        <script>
+            function markSource(sid) {
+            var xhttp = new XMLHttpRequest();
+            var url = "select/"+sid;
+            //console.log(data.value)
+            //console.log(idr);
+            console.log(url);
+            xhttp.open("GET", url, true);
+            xhttp.send();
+            }
+        </script>
 		<footer>
 			<p></p>
 		</footer>

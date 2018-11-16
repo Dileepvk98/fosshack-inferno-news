@@ -255,8 +255,8 @@ input#image-button{
 /* Create a custom checkbox */
 .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -5px;
+    left: 2px;
     height: 25px;
     width: 25px;
     background-color: rgb(116, 116, 116);
@@ -284,4 +284,10 @@ input#image-button{
     border: solid rgb(255, 255, 255);
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
+}
+
+.container h5{
+	position: relative;
+	margin-top: 10px;
+	font-weight: 600;
 }

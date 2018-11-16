@@ -5,14 +5,12 @@ from django.template import loader
 from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
-from .models import Articles,MarkedNews,Category_Source#,Categories
+from .models import Articles,MarkedNews,Category_Source#,SourcesSelected
 
 # Create your views here.
 def news_fetch(news_type):
-
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
-    
     try:
         for source in Category_Source.objects.filter(category=news_type):
             response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source.source_id+"&apiKey="+APIKEY)
@@ -31,8 +29,7 @@ def news_fetch(news_type):
                 if article["publishedAt"] is None:
                     time = datetime.now()
                 else:
-                    time = article["publishedAt"]
-                    # eg. "2018-11-10T14:12:15Z"
+                    time = article["publishedAt"]# eg. "2018-11-10T14:12:15Z"
                     time = datetime.strptime(time[:19]+"Z", '%Y-%m-%dT%H:%M:%SZ') 
                 news = Articles(title=article["title"],short_description=article["description"], 
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
@@ -46,8 +43,7 @@ def news_render(request,news_type = "local"):
     if request.user.is_authenticated:
         marked = MarkedNews.objects.filter(userId=request.user.id)
         marked = [m.news_id.news_id for m in marked]
-        print(marked)
-    # print(all_news)
+
     template = loader.get_template('index.html')
     context = {
         'all_news': all_news,
@@ -56,7 +52,6 @@ def news_render(request,news_type = "local"):
     return HttpResponse(template.render(context, request))
 
 def show_profile_pg(request):
-
     if request.method == 'GET':
         newsid = request.GET.get('news')
         if newsid is not None:
@@ -81,7 +76,6 @@ def show_profile_pg(request):
 
 def mark_news(request,newsid):
     text = "<h1>Marked/h1>"
-    # print(newsid,userid)
     duplicate = MarkedNews.objects.filter(news_id=newsid,userId=request.user.id)
     if len(duplicate) < 1:
         newsOb = Articles.objects.get(news_id=newsid)
@@ -90,6 +84,18 @@ def mark_news(request,newsid):
         m.save()
     else:
         MarkedNews.objects.filter(news_id=newsid,userId=request.user.id).delete()
+    return HttpResponse(text)
+
+def mark_sources(request,sourceid):
+    text = "<h1>Source Selected/h1>"
+    # duplicate = SourcesSelected.objects.filter(source_id=sourceid,userId=request.user.id)
+    # if len(duplicate) < 1:
+    #     # newsOb = Articles.objects.get(news_id=newsid)
+    #     userOb = User.objects.get(id=request.user.id)
+    #     m = SourcesSelected(source_id=sourceid,userId=request.user.id)
+    #     m.save()
+    # else:
+    #     SourcesSelected.objects.filter(source_id=sourceid,userId=request.user.id).delete()
     return HttpResponse(text)
     
 def test_func(request):
