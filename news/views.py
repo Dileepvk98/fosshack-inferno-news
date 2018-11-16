@@ -5,7 +5,7 @@ from django.template import loader
 from django.contrib.auth.models import User
 import json, requests
 from datetime import datetime
-from .models import Articles,MarkedNews,Category_Source#,SourcesSelected
+from .models import Articles,MarkedNews,Category_Source,SourcesSelected
 
 # Create your views here.
 def news_fetch(news_type):
@@ -62,6 +62,7 @@ def show_profile_pg(request):
     tech = Category_Source.objects.filter(category="tech")
     business = Category_Source.objects.filter(category="business")
     marked_news = MarkedNews.objects.filter(userId=request.user.id)
+    selected_sources = SourcesSelected.objects.filter(userId=request.user.id)
 
     context = {
         'local':local,
@@ -69,7 +70,8 @@ def show_profile_pg(request):
         'science':science,
         'tech':tech,
         'business':business,
-        'marked_news':marked_news
+        'marked_news':marked_news,
+        'selected_sources':selected_sources
     }
     template = loader.get_template('profile.html')
     return HttpResponse(template.render(context, request))

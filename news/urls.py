@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^profile',views.show_profile_pg),
     url(r'^(?P<news_type>[a-z]+)$',views.news_render,name = 'news_gen'),
     # url(r'^$',views.test_func),
-    # path('select/<int:sourceid>',views.mark_sources)
+    path('select/<int:sourceid>',views.mark_sources)
 ]
