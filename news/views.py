@@ -14,11 +14,11 @@ def news_fetch(request,news_type):
     if request.user.is_authenticated:
         selected_sources = SourcesSelected.objects.filter(userId=request.user.id,source_id__category=news_type)
         selected_sources = [s.source_id.source_id for s in selected_sources]
-        print("Selected",selected_sources)
+        # print("Selected",selected_sources)
     else:
         selected_sources = Category_Source.objects.filter(category=news_type)
         selected_sources = [s.source_id for s in selected_sources]
-        print("All",selected_sources)
+        # print("All",selected_sources)
     
     try:
         for source in selected_sources:
@@ -76,7 +76,7 @@ def show_profile_pg(request):
     marked_news = MarkedNews.objects.filter(userId=request.user.id)
     selected_sources = SourcesSelected.objects.filter(userId=request.user.id)
     selected_sources = [s.source_id.source_id for s in selected_sources]
-    print(selected_sources)
+    # print(selected_sources)
     context = {
         'local':local,
         'sports':sports,
@@ -103,7 +103,6 @@ def mark_news(request,newsid):
 
 def mark_sources(request,sourceid):
     text = "<h1>Source Selected/h1>"
-    print(sourceid)
     duplicate = SourcesSelected.objects.filter(source_id__source_id=sourceid,userId=request.user.id)
     if len(duplicate) < 1:
         userOb = User.objects.get(id=request.user.id)
