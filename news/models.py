@@ -21,6 +21,9 @@ class Articles(models.Model):
     publishedAt = models.DateTimeField(null = True)
     source_category = models.ForeignKey(Category_Source,on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-publishedAt']
+
     def __str__(self):
         return self.title[:50]
 

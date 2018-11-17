@@ -8,16 +8,22 @@ from datetime import datetime
 from .models import Articles,MarkedNews,Category_Source,SourcesSelected
 
 # Create your views here.
-def news_fetch(news_type):
+def news_fetch(request,news_type):
     APIKEY = "5f51f7dd9bca4908a91dd918634eb417"
     data = {}
-    try:
-        for source in Category_Source.objects.filter(category=news_type):
-            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source.source_id+"&apiKey="+APIKEY)
-            json_data = json.loads(response.text)
-            data[source.source_id] = json_data["articles"]
-    except:
-        return
+    if request.user.is_authenticated:
+        selected_sources = SourcesSelected.objects.filter(userId=request.user.id,source_id__category=news_type)
+        selected_sources = [s.source_id.source_id for s in selected_sources]
+        print("Selected",selected_sources)
+    else:
+        selected_sources = Category_Source.objects.filter(category=news_type)
+        selected_sources = [s.source_id for s in selected_sources]
+        print("All",selected_sources)
+    for source in selected_sources:
+        print("Fetched news from ",source)
+        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
+        json_data = json.loads(response.text)
+        data[source] = json_data["articles"]
 
     for source in data:
         # list of articles from each source
@@ -37,7 +43,7 @@ def news_fetch(news_type):
                 news.save()
 
 def news_render(request,news_type = "local"):
-    # news_fetch(news_type)
+    news_fetch(request,news_type)
     marked = []
     all_news = Articles.objects.filter(source_category__category=news_type)
     if request.user.is_authenticated:
@@ -63,7 +69,8 @@ def show_profile_pg(request):
     business = Category_Source.objects.filter(category="business")
     marked_news = MarkedNews.objects.filter(userId=request.user.id)
     selected_sources = SourcesSelected.objects.filter(userId=request.user.id)
-
+    selected_sources = [s.source_id.source_id for s in selected_sources]
+    print(selected_sources)
     context = {
         'local':local,
         'sports':sports,
@@ -90,14 +97,15 @@ def mark_news(request,newsid):
 
 def mark_sources(request,sourceid):
     text = "<h1>Source Selected/h1>"
-    # duplicate = SourcesSelected.objects.filter(source_id=sourceid,userId=request.user.id)
-    # if len(duplicate) < 1:
-    #     # newsOb = Articles.objects.get(news_id=newsid)
-    #     userOb = User.objects.get(id=request.user.id)
-    #     m = SourcesSelected(source_id=sourceid,userId=request.user.id)
-    #     m.save()
-    # else:
-    #     SourcesSelected.objects.filter(source_id=sourceid,userId=request.user.id).delete()
+    print(sourceid)
+    duplicate = SourcesSelected.objects.filter(source_id__source_id=sourceid,userId=request.user.id)
+    if len(duplicate) < 1:
+        userOb = User.objects.get(id=request.user.id)
+        sourceOb = Category_Source.objects.get(source_id=sourceid)
+        m = SourcesSelected(source_id=sourceOb,userId=userOb)
+        m.save()
+    else:
+        SourcesSelected.objects.filter(source_id__source_id=sourceid,userId=request.user.id).delete()
     return HttpResponse(text)
     
 def test_func(request):
