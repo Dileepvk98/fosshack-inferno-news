@@ -19,11 +19,15 @@ def news_fetch(request,news_type):
         selected_sources = Category_Source.objects.filter(category=news_type)
         selected_sources = [s.source_id for s in selected_sources]
         print("All",selected_sources)
-    for source in selected_sources:
-        print("Fetched news from ",source)
-        response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
-        json_data = json.loads(response.text)
-        data[source] = json_data["articles"]
+    
+    try:
+        for source in selected_sources:
+            print("Fetched news from ",source)
+            response = requests.get("https://newsapi.org/v2/top-headlines?sources="+source+"&apiKey="+APIKEY)
+            json_data = json.loads(response.text)
+            data[source] = json_data["articles"]
+    except:
+        return selected_sources
 
     for source in data:
         # list of articles from each source
@@ -41,11 +45,13 @@ def news_fetch(request,news_type):
         				url=article["url"],urlToImage=article["urlToImage"], author=article["author"],
         				publishedAt=time,source_category=c_s_id)
                 news.save()
+    
+    return selected_sources
 
 def news_render(request,news_type = "local"):
-    news_fetch(request,news_type)
+    selected_sources = news_fetch(request,news_type)
     marked = []
-    all_news = Articles.objects.filter(source_category__category=news_type)
+    all_news = Articles.objects.filter(source_category__category=news_type,source_category__source_id__in=selected_sources)
     if request.user.is_authenticated:
         marked = MarkedNews.objects.filter(userId=request.user.id)
         marked = [m.news_id.news_id for m in marked]
