@@ -21,11 +21,21 @@
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form action="" method="post">
-          {% csrf_token %}
-          <input class="text" type="text" name="{{form.username.html_name }}" placeholder="Username" required=""><br><br>
-          <input class="text" type="password" name="{{form.password.html_name }}" placeholder="Password" required="">
-          <input type="submit" value="LOGIN">
-          <input type="hidden" name="next" value="{{ next }}" />
+					{% csrf_token %}
+					{{ form.non_field_errors }}
+					{% if form.errors %}
+					{% for field in form %}
+						{% for error in field.errors %}
+							<div class="alert alert-danger">
+								<strong>{{ error|escape }}</strong>
+							</div>
+						{% endfor %}
+					{% endfor %}
+					{% endif %}
+					<input class="text" type="text" name="{{form.username.html_name }}" placeholder="Username" required=""><br><br>
+					<input class="text" type="password" name="{{form.password.html_name }}" placeholder="Password" required="">
+					<input type="submit" value="LOGIN">
+					<input type="hidden" name="next" value="{{ next }}" />
 				</form>
 				<p>Don't have an Account? <a href="{% url 'signup'%}"><br> Sign up Now!</a></p>
 			</div>
