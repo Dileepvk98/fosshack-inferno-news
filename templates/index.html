@@ -9,7 +9,7 @@
     </head>
     <body background="{% static 'imgs/bg2.jpg' %}">
 		<header>
-			<h1><a href="local">Inferno News</a></h1>
+			<h1><a href="local" title="Go to Home page">Inferno News</a></h1>
 			<nav>				
 				<ul id="navelements">
 					<div class="category">
@@ -22,7 +22,7 @@
 					<div class="loginsignup">
 					{% block content %}
 						{% if user.is_authenticated %}
-							<li class="username"><a  href="profile" >Welcome, {{ user.username }}</a></li>
+							<li class="username" title="Visit Profile Settings"><a  href="profile" >Welcome, {{ user.username }}</a></li>
 							<li class="loginsignup"><a  href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
 							<li class="loginsignup"><a  href="{% url 'login'%}">Login</a></li>
@@ -33,6 +33,7 @@
 				</ul>				
 			</nav>
 		</header>
+		
 		<br><br><br><br><br><br><br><br>
 		<div id="secwrapper">
 			<section>
@@ -61,17 +62,17 @@
 				{% endfor %}
 			</section>
 		</div>
+
 		<script>
 			function markNews(nid) {
 			  var xhttp = new XMLHttpRequest();
 			  var url = "mark/"+nid;
-				//console.log(data.value)
-				//console.log(idr);
 			  console.log(url);
 			  xhttp.open("GET", url, true);
 			xhttp.send();
 			}
 		</script>
+
 		<footer>
 			<p></p>
 		</footer>
