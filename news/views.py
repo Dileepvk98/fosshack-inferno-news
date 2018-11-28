@@ -55,7 +55,7 @@ def news_render(request,news_type = "local"):
         selected_sources = [s.source_id for s in selected_sources]
         # print("All",selected_sources)
 
-    # news_fetch(request,news_type,selected_sources)
+    news_fetch(request,news_type,selected_sources)
     marked = []
     all_news = Articles.objects.filter(source_category__category=news_type,source_category__source_id__in=selected_sources)
     if request.user.is_authenticated:
